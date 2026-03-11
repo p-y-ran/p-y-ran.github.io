@@ -301,24 +301,43 @@
 
     <!-- 语言切换JS -->
     <script>
-        function showEn() {
-            document.querySelector('.en-section').style.display = 'block';
-            document.querySelector('.cn-section').style.display = 'none';
-            // 同步切换归属标识显示
-            document.querySelectorAll('.ownership-tag.en-section')[0].style.display = 'block';
-            document.querySelectorAll('.ownership-tag.cn-section')[0].style.display = 'none';
-        }
-        function showCn() {
-            document.querySelector('.en-section').style.display = 'none';
-            document.querySelector('.cn-section').style.display = 'block';
-            // 同步切换归属标识显示
-            document.querySelectorAll('.ownership-tag.en-section')[0].style.display = 'none';
-            document.querySelectorAll('.ownership-tag.cn-section')[0].style.display = 'block';
-        }
-        // 页面加载默认显示英文
-        window.onload = function() {
-            showEn();
-        };
+        // 显示英文版本：所有英文区块显示，中文区块隐藏
+function showEn() {
+    // 选中所有英文区块并显示
+    const enSections = document.querySelectorAll('.en-section');
+    enSections.forEach(section => {
+        section.style.display = 'block';
+    });
+    // 选中所有中文区块并隐藏
+    const cnSections = document.querySelectorAll('.cn-section');
+    cnSections.forEach(section => {
+        section.style.display = 'none';
+    });
+    // 同步修改页面标题
+    document.title = "Privacy Policy - App0311 | TikTok API Compliant";
+}
+
+// 显示中文版本：所有中文区块显示，英文区块隐藏
+function showCn() {
+    // 选中所有中文区块并显示
+    const cnSections = document.querySelectorAll('.cn-section');
+    cnSections.forEach(section => {
+        section.style.display = 'block';
+    });
+    // 选中所有英文区块并隐藏
+    const enSections = document.querySelectorAll('.en-section');
+    enSections.forEach(section => {
+        section.style.display = 'none';
+    });
+    // 同步修改页面标题
+    document.title = "隐私政策 - App0311 | TikTok API 合规";
+}
+
+// 页面加载默认显示英文
+window.onload = function() {
+    showEn();
+};
     </script>
 </body>
 </html>
+
