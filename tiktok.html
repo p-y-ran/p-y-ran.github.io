@@ -2,53 +2,15 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>TikTok 授权回调</title>
-    <script>
-        // 页面加载后自动解析 URL 中的授权参数
-        window.onload = function() {
-            // 1. 获取 URL 中的查询参数（code 是授权码，state 是你传的随机值）
-            const urlParams = new URLSearchParams(window.location.search);
-            const code = urlParams.get('code');
-            const state = urlParams.get('state');
-            const error = urlParams.get('error');
-
-            // 2. 处理授权结果
-            if (error) {
-                // 授权失败（比如用户取消授权）
-                alert('授权失败：' + error);
-                console.error('TikTok 授权错误：', error);
-            } else if (code) {
-                // 授权成功，拿到 code（核心逻辑）
-                console.log('TikTok 授权码：', code);
-                alert('授权成功！授权码已获取（查看控制台）');
-                
-                // 👇 这里替换成你的业务逻辑（二选一即可）
-                // 方案A：把 code 传给后端接口（推荐，更安全）
-                // fetch('https://你的后端地址/api/tiktok/get-token', {
-                //     method: 'POST',
-                //     body: JSON.stringify({ code: code, state: state }),
-                //     headers: { 'Content-Type': 'application/json' }
-                // }).then(res => res.json()).then(data => {
-                //     console.log('后端返回的 Token：', data);
-                //     // 跳转到你的应用主页
-                //     window.location.href = 'https://p-y-ran.github.io/';
-                // });
-
-                // 方案B：前端直接处理（适合纯静态应用，需注意 Token 安全）
-                // 比如把 code 存到 localStorage，再跳回主页
-                localStorage.setItem('tiktok_auth_code', code);
-                window.location.href = 'https://p-y-ran.github.io/'; // 跳回你的应用首页
-            } else {
-                // 无参数，直接跳回首页
-                window.location.href = 'https://p-y-ran.github.io/';
-            }
-        };
-    </script>
+    <title>TikTok 授权回调页</title>
+    <style>
+        body { text-align: center; margin-top: 100px; font-size: 20px; color: #333; }
+        .success { color: #008000; font-weight: bold; }
+    </style>
 </head>
 <body>
-    <div style="text-align: center; margin-top: 100px;">
-        <h1>TikTok 授权中...</h1>
-        <p>如果长时间未跳转，请检查网络或刷新页面</p>
-    </div>
+    <h1 class="success">页面能打开啦！✅</h1>
+    <p>这是 TikTok 授权回调页，地址：https://p-y-ran.github.io/tiktok.html</p>
+    <p>可以把这个地址填到 TikTok 开发者后台的重定向 URI 里了</p>
 </body>
 </html>
