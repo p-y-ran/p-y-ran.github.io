@@ -59,6 +59,40 @@
             font-size: 14px;
             color: #6b7280;
         }
+        .sandbox-demo {
+            margin-top: 40px;
+            padding: 20px;
+            background: #f0f9ff;
+            border-radius: 8px;
+        }
+        .sandbox-demo h3 {
+            color: #0369a1;
+            margin-bottom: 15px;
+        }
+        .sandbox-demo button {
+            padding: 10px 20px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        #sandboxResult {
+            margin-top: 20px;
+            padding: 15px;
+            background: white;
+            border-radius: 6px;
+            display: none;
+        }
+        #sandboxResult ul {
+            margin-left: 25px;
+            margin-top: 10px;
+        }
+        #sandboxResult p.note {
+            color: #dc2626;
+            font-size: 14px;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -82,6 +116,25 @@
             <h3>🔒 Data Compliance</h3>
             <p>Strictly follow data minimization principle: only collect public data, no sensitive information, no data sharing, and all data can be revoked by users at any time.</p>
         </div>
+
+        <!-- 沙盒演示模块 -->
+        <div class="sandbox-demo">
+            <h3>🧪 Sandbox Demo (Test Environment)</h3>
+            <button onclick="simulateAuth()">
+                Simulate OAuth 2.0 Authorization (Sandbox)
+            </button>
+            <div id="sandboxResult">
+                <p><strong>✅ Authorization Successful (Sandbox Mode)</strong></p>
+                <p>Shop ID: sandbox_shop_123456 (Test Data Only)</p>
+                <p>Public Order Stats (Mock):</p>
+                <ul>
+                    <li>Total Orders: 120</li>
+                    <li>Total Sales: $5,800</li>
+                    <li>Inventory Status: In Stock (Test)</li>
+                </ul>
+                <p class="note">Note: This is sandbox test data only, no real user data is accessed.</p>
+            </div>
+        </div>
     </div>
 
     <div class="links">
@@ -92,5 +145,11 @@
     <div class="footer">
         <p>© 2026 Foshan Hepburn Garment Industry Co., Ltd. All rights reserved.</p>
     </div>
+
+    <script>
+        function simulateAuth() {
+            document.getElementById("sandboxResult").style.display = "block";
+        }
+    </script>
 </body>
 </html>
