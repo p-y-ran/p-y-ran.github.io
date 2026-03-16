@@ -93,6 +93,15 @@
             font-size: 14px;
             margin-top: 10px;
         }
+        /* 新增回调页面样式 */
+        .callback-page {
+            max-width: none;
+            margin: 0;
+            padding: 50px 20px;
+            text-align: center;
+        }
+        .loading { color: #2563eb; font-size: 18px; }
+        .error { color: #dc2626; font-size: 16px; margin-top: 20px; }
     </style>
 </head>
 <body>
@@ -150,6 +159,41 @@
         function simulateAuth() {
             document.getElementById("sandboxResult").style.display = "block";
         }
+
+        // ========== 新增 OAuth 回调逻辑 ==========
+        document.addEventListener('DOMContentLoaded', function() {
+            const hash = window.location.hash;
+            // 仅在访问 #/callback 时触发回调逻辑
+            if (hash === '#/callback') {
+                // 替换为你自己的 Pipedream/RequestBin 地址！！！
+                const requestBinUrl = "https://eox425na59owbiw.m.pipedream.net/";
+                
+                // 获取 TikTok 回调的 code/error 参数
+                const searchParams = new URLSearchParams(window.location.search);
+                const code = searchParams.get('code');
+                const error = searchParams.get('error');
+
+                // 替换页面内容为回调界面
+                document.body.innerHTML = `
+                    <div class="callback-page">
+                        <div class="loading">正在授权中，请稍候...</div>
+                        <div class="error" id="error" style="display: none;">授权失败：未获取到code参数，请重新操作</div>
+                    </div>
+                `;
+
+                const errorDiv = document.getElementById('error');
+                // 处理授权结果
+                if (error) {
+                    errorDiv.style.display = 'block';
+                    errorDiv.textContent = `授权失败：${error}`;
+                } else if (code) {
+                    // 转发 code 到你的 Pipedream 地址
+                    window.location.href = `${requestBinUrl}?code=${encodeURIComponent(code)}`;
+                } else {
+                    errorDiv.style.display = 'block';
+                }
+            }
+        });
     </script>
 </body>
 </html>
