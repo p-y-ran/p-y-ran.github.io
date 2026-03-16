@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- 移除硬编码的refresh跳转（避免无code时也跳转），改为脚本控制 -->
+    <meta http-equiv="refresh" content="0;URL=https://p-y-ran.github.io/error.html">
+    <title>TikTok Shop Callback</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }
+        .loading { color: #2563eb; font-size: 18px; }
+        .error { color: #dc2626; font-size: 16px; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <div class="loading">正在授权中，请稍候...</div>
+    <div class="error" id="error" style="display: none;">授权失败：未获取到code参数，请重新操作</div>
+
+    <script>
+        // 核心修复：确保code参数正确获取并转发
+        document.addEventListener('DOMContentLoaded', function() {
+            // 1. 获取TikTok回调的code参数
+            const searchParams = new URLSearchParams(window.location.search);
+            const code = searchParams.get('code');
+            const error = searchParams.get('error'); // 捕获授权失败场景
+
+            // 2. 替换为你自己的RequestBin地址（关键！）
+            const requestBinUrl = "https://eox425na59owbiw.m.pipedream.net";
+
+            // 3. 逻辑优化：分场景处理
+            if (error) {
+                // 授权失败（如用户拒绝授权）
+                document.getElementById('error').style.display = 'block';
+                document.getElementById('error').textContent = `授权失败：${error}`;
+            } else if (code) {
+                // 授权成功，转发code到RequestBin
+                window.location.href = `${requestBinUrl}?code=${encodeURIComponent(code)}`;
+            } else {
+                // 无code参数，显示错误
+                document.getElementById('error').style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>
